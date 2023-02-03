@@ -3,12 +3,12 @@ using WeatherAnomaly.Models;
 
 namespace WeatherAnomaly.Contexts;
 
-public class sqlDBContext : DbContext
+public class SqlDbContext : DbContext
 {
-    public sqlDBContext(DbContextOptions<sqlDBContext> options) : base(options)
+    public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {
     }
     
-    public DbSet<WeatherModel?> Weather { get; set; }
+    public DbSet<WeatherModel> Weather { get; set; }
 
 }

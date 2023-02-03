@@ -11,9 +11,9 @@ public class WeatherDataRepository : IWeatherDataRepository
 {
     // Initiate Automapper
     private readonly IMapper _mapper;
-    private readonly sqlDBContext _context;
+    private readonly SqlDbContext _context;
     
-    public WeatherDataRepository(sqlDBContext context, IMapper mapper)
+    public WeatherDataRepository(SqlDbContext context, IMapper mapper)
     {
         _mapper = mapper;
         _context = context;
@@ -69,7 +69,11 @@ public class WeatherDataRepository : IWeatherDataRepository
         // Create a new WeatherModel object and add the data from the WeatherDto object
         // Use Automapper to map the data from the WeatherDto object to the WeatherModel object
         WeatherModel newWeather = new WeatherModel();
-        newWeather = _mapper.Map<WeatherModel>(weather);
+        newWeather.country = weather.country;
+        newWeather.t = (float) weather.t;
+        newWeather.fx = (float) weather.fx;
+        newWeather.f = (float) weather.f;
+        newWeather.p = (float) weather.p;
         
         // Add the new WeatherModel object to the database
         await _context.Weather.AddAsync(newWeather);

@@ -7,13 +7,13 @@ using WeatherAnomaly.Repository.Interface;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<IWeatherDataRepository, WeatherDataRepository>();
+builder.Services.AddScoped<IWeatherDataRepository, WeatherDataRepository>();
 
 // Add SQL service
 var connDB = builder.Configuration.GetConnectionString("WeatherAnomaly");
 
 // Add Database Service
-builder.Services.AddDbContext<sqlDBContext>(options =>
+builder.Services.AddDbContext<SqlDbContext>(options =>
     options.UseSqlServer(connDB));
 
 // Add Automapper service

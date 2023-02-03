@@ -55,7 +55,17 @@ public class WeatherController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<WeatherModel>> AddWeather(WeatherDto weather)
     {
-        return Ok(_weatherDataRepository.AddWeather(weather));
+        try{
+            var result = _weatherDataRepository.AddWeather(weather);
+            if (result == null)
+                return BadRequest();
+            
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
 }

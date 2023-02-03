@@ -11,7 +11,7 @@ using WeatherAnomaly.Contexts;
 
 namespace WeatherAnomaly.Migrations
 {
-    [DbContext(typeof(sqlDBContext))]
+    [DbContext(typeof(SqlDbContext))]
     [Migration("20230203175746_CheckTime")]
     partial class CheckTime
     {

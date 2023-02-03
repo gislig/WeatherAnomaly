@@ -10,7 +10,7 @@ using WeatherAnomaly.Contexts;
 
 namespace WeatherAnomaly.Migrations
 {
-    [DbContext(typeof(sqlDBContext))]
+    [DbContext(typeof(SqlDbContext))]
     [Migration("20230203174719_InitialMigration")]
     partial class InitialMigration
     {

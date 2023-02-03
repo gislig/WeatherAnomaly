@@ -10,7 +10,7 @@ using WeatherAnomaly.Contexts;
 
 namespace WeatherAnomaly.Migrations
 {
-    [DbContext(typeof(sqlDBContext))]
+    [DbContext(typeof(SqlDbContext))]
     partial class sqlDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
