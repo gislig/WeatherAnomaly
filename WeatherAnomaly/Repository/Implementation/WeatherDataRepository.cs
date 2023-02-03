@@ -67,7 +67,7 @@ public class WeatherDataRepository : IWeatherDataRepository
     public async Task<WeatherModel> AddWeather(WeatherDto weather)
     {
         // Check if the WeatherModel object already exists in the database, by checking country, t, fx, f and p and also the time
-        bool weatherExists = _context.Weather.Any(i => i.country == weather.country && i.t == weather.t && i.fx == weather.fx && i.f == weather.f && i.p == weather.p && i.checkTime == weather.checkTime);
+        bool weatherExists = await _context.Weather.AnyAsync(i => i.country == weather.country && i.t == weather.t && i.fx == weather.fx && i.f == weather.f && i.p == weather.p && i.checkTime == weather.checkTime);
 
         // If the WeatherModel object already exists in the database, return empty WeatherModel object
         if (weatherExists)
@@ -81,6 +81,7 @@ public class WeatherDataRepository : IWeatherDataRepository
         newWeather.fx = (float) weather.fx;
         newWeather.f = (float) weather.f;
         newWeather.p = (float) weather.p;
+        newWeather.checkTime = weather.checkTime.ToUniversalTime();
         
         // Add the new WeatherModel object to the database
         await _context.Weather.AddAsync(newWeather);
