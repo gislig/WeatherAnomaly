@@ -19,52 +19,48 @@ public class WeatherController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeather()
     {
-        return Ok(_weatherDataRepository.GetAllWeather());
+        return Ok(await _weatherDataRepository.GetAllWeather());
     }
     
     [HttpGet("date/{fromDate}/{toDate}")]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeatherFromDateToDate(DateTime fromDate, DateTime toDate)
     {
-        return Ok(_weatherDataRepository.GetAllWeatherFromDateToDate(fromDate, toDate));
+        return Ok(await _weatherDataRepository.GetAllWeatherFromDateToDate(fromDate, toDate));
     }
     
     [HttpGet("year/{fromYear}/{toYear}")]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeatherFromYearToYear(int fromYear, int toYear)
     {
-        return Ok(_weatherDataRepository.GetAllWeatherFromYearToYear(fromYear, toYear));
+        return Ok(await _weatherDataRepository.GetAllWeatherFromYearToYear(fromYear, toYear));
     }
     
     [HttpGet("month/{fromMonth}/{toMonth}")]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeatherFromMonthToMonth(int fromMonth, int toMonth)
     {
-        return Ok(_weatherDataRepository.GetAllWeatherFromMonthToMonth(fromMonth, toMonth));
+        return Ok(await _weatherDataRepository.GetAllWeatherFromMonthToMonth(fromMonth, toMonth));
     }
     
     [HttpGet("day/{fromDay}/{toDay}")]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeatherFromDayToDay(int fromDay, int toDay)
     {
-        return Ok(_weatherDataRepository.GetAllWeatherFromDayToDay(fromDay, toDay));
+        return Ok(await _weatherDataRepository.GetAllWeatherFromDayToDay(fromDay, toDay));
     }
     
     [HttpGet("hour/{fromHour}/{toHour}")]
     public async Task<ActionResult<List<WeatherModel>>> GetAllWeatherFromHourToHour(int fromHour, int toHour)
     {
-        return Ok(_weatherDataRepository.GetAllWeatherFromHourToHour(fromHour, toHour));
+        return Ok(await _weatherDataRepository.GetAllWeatherFromHourToHour(fromHour, toHour));
     }
     
     [HttpPost]
     public async Task<ActionResult<WeatherModel>> AddWeather(WeatherDto weather)
     {
         try{
-            var result = _weatherDataRepository.AddWeather(weather);
-            if (result == null)
-                return BadRequest();
-            
-            return Ok(result);
+            return await _weatherDataRepository.AddWeather(weather);
         }
         catch (Exception e)
         {
-            return BadRequest(e.Message);
+            return BadRequest();
         }
     }
 
