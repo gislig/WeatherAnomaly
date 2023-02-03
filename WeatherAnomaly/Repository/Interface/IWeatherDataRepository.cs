@@ -12,4 +12,5 @@ public interface IWeatherDataRepository
     Task<List<WeatherModel>> GetAllWeatherFromDayToDay(int fromDay, int toDay);
     Task<List<WeatherModel>> GetAllWeatherFromHourToHour(int fromHour, int toHour);
     Task<WeatherModel> AddWeather(WeatherDto weather);
+    Task DeleteWeatherByCountryName(string countryName);
 }

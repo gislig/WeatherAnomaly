@@ -56,7 +56,24 @@ public class WeatherController : ControllerBase
     public async Task<ActionResult<WeatherModel>> AddWeather(WeatherDto weather)
     {
         try{
-            return await _weatherDataRepository.AddWeather(weather);
+            var result = await _weatherDataRepository.AddWeather(weather);
+            if (result == null)
+                return Conflict("Duplicate data exists");
+            
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest();
+        }
+    }
+    
+    [HttpDelete("{countryName}")]
+    public async Task<ActionResult> DeleteWeather(string countryName)
+    {
+        try{
+            await _weatherDataRepository.DeleteWeatherByCountryName(countryName);
+            return Ok();
         }
         catch (Exception e)
         {

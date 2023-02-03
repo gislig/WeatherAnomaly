@@ -66,6 +66,20 @@ public class WeatherDataRepository : IWeatherDataRepository
 
     public async Task<WeatherModel> AddWeather(WeatherDto weather)
     {
+        // Check if the WeatherModel object already exists in the database, by checking country, t, fx, f and p and also the time
+        WeatherModel weatherExists = await _context.Weather.FirstOrDefaultAsync(
+            w => 
+                w.country == weather.country && 
+                w.t == weather.t && 
+                w.fx == weather.fx && 
+                w.f == weather.f && 
+                w.p == weather.p && 
+                w.checkTime == weather.checkTime);
+        
+        // If the WeatherModel object already exists in the database, return empty WeatherModel object
+        if (weatherExists != null)
+            return new WeatherModel();
+        
         // Create a new WeatherModel object and add the data from the WeatherDto object
         // Use Automapper to map the data from the WeatherDto object to the WeatherModel object
         WeatherModel newWeather = new WeatherModel();
@@ -80,5 +94,17 @@ public class WeatherDataRepository : IWeatherDataRepository
         await _context.SaveChangesAsync();
         
         return newWeather;
+    }
+
+    public async Task DeleteWeatherByCountryName(string countryName)
+    {
+        // Find all the WeatherModel objects with the countryName
+        List<WeatherModel> weatherToDelete = await _context.Weather.Where(country => country.country == countryName).ToListAsync();
+        
+        // Remove all the WeatherModel objects with the countryName
+        _context.Weather.RemoveRange(weatherToDelete);
+        
+        // Save the changes to the database
+        await _context.SaveChangesAsync();
     }
 }

@@ -10,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IWeatherDataRepository, WeatherDataRepository>();
 
 // Add SQL service
-var connDB = builder.Configuration.GetConnectionString("WeatherAnomaly");
+// Get environment variable for ConnDB
+string connDB = Environment.GetEnvironmentVariable("WeatherAnomaly");
+if (string.IsNullOrEmpty(connDB))
+{
+    connDB = builder.Configuration.GetConnectionString("WeatherAnomaly");
+}
 
 // Add Database Service
 builder.Services.AddDbContext<SqlDbContext>(options =>
