@@ -11,4 +11,5 @@ public class WeatherModel
     public float f { get; set; } // f = wind speed
     public float t { get; set; } // t = air temperature
     public float p { get; set; } // p = air pressure
+    public DateTime checkTime { get; set; }
 }
